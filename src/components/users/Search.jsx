@@ -11,14 +11,14 @@ export default function Search(props) {
       <form onSubmit={onSumbit}>
         <input
           onChange={(event) => setText(event.target.value)}
-          className='w-full  border p-4 rounded'
+          className='w-full border p-4 rounded focus:outline-none focus:shadow-outline border-gray-400'
           type='text'
           name='text'
           placeholder='Search for users...'
         />
         <br />
         <input
-          className='w-full py-4  my-4 bg-gray-700 hover:bg-gray-800 text-white font-bold rounded '
+          className='w-full py-4 outline-none my-4 bg-gray-700 hover:bg-gray-800 text-white font-bold rounded'
           style={{ cursor: 'pointer' }}
           type='submit'
           value='Search'

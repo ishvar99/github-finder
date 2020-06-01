@@ -9,18 +9,21 @@ class App extends Component {
     users: [],
     loading: false,
   };
-  async componentDidMount() {
-    console.log(process.env.REACT_APP_CLIENT_ID);
+  // async componentDidMount() {
+  //   this.setState({ loading: true });
+  //   const response = await axios.get(
+  //     `https://api.github.com/users?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+  //   );
+  //   console.log(response.data);
+  //   this.setState({ users: response.data, loading: false });
+  // }
+  searchUsers = async (user) => {
     this.setState({ loading: true });
     const response = await axios.get(
-      `https://api.github.com/users?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+      `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
-    console.log(response.data);
-    this.setState({ users: response.data, loading: false });
-  }
-  searchUsers(user) {
-    console.log(user);
-  }
+    this.setState({ users: response.data.items, loading: false });
+  };
   render() {
     return (
       <div>
