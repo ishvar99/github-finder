@@ -18,11 +18,14 @@ class App extends Component {
     console.log(response.data);
     this.setState({ users: response.data, loading: false });
   }
+  searchUsers(user) {
+    console.log(user);
+  }
   render() {
     return (
       <div>
         <Navbar />
-        <Search />
+        <Search searchUsers={this.searchUsers} />
         <Users users={this.state.users} loading={this.state.loading} />
       </div>
     );
