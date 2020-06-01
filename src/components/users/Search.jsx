@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 export default function Search(props) {
   const [text, setText] = useState('');
 
@@ -27,3 +29,6 @@ export default function Search(props) {
     </div>
   );
 }
+Search.propTypes = {
+  searchUsers: PropTypes.func.isRequired,
+};
