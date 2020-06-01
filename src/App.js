@@ -1,35 +1,30 @@
 import React, { Component } from 'react';
 import Navbar from './components/layouts/Navbar';
 import Users from './components/users/Users';
+import axios from 'axios';
 import './App.css';
 class App extends Component {
   state = {
-    users: [
-      {
-        login: 'mojombo',
-        id: 1,
-        avatar_url: 'https://avatars0.githubusercontent.com/u/1?v=4',
-        html_url: 'https://github.com/mojombo',
-      },
-      {
-        login: 'defunkt',
-        id: 2,
-        avatar_url: 'https://avatars0.githubusercontent.com/u/2?v=4',
-        html_url: 'https://github.com/defunkt',
-      },
-      {
-        login: 'pjhyett',
-        id: 3,
-        avatar_url: 'https://avatars0.githubusercontent.com/u/3?v=4',
-        html_url: 'https://github.com/pjhyett',
-      },
-    ],
+    users: [],
+    loading: false,
   };
+
+  async componentDidMount() {
+    this.setState({ loading: true });
+    const response = await axios.get('https://api.github.com/users');
+    console.log(response.data);
+    this.setState({ users: response.data, loading: false });
+  }
+
   render() {
     return (
       <div>
         <Navbar />
-        <Users users={this.state.users} />
+        {this.state.loading ? (
+          <div>Loading...</div>
+        ) : (
+          <Users users={this.state.users} />
+        )}
       </div>
     );
   }
