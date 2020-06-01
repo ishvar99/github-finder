@@ -11,10 +11,8 @@ const Navbar = (props) => {
             href='/'
             className='flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0'
           >
-            <i
-              className={classNames(this.props.icon, 'text-white', 'text-4xl')}
-            ></i>
-            <span className='ml-3 text-xl text-white'>{this.props.title}</span>
+            <i className={classNames(props.icon, 'text-white', 'text-4xl')}></i>
+            <span className='ml-3 text-xl text-white'>{props.title}</span>
           </a>
         </div>
       </header>
