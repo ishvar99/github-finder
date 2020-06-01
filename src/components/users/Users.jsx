@@ -1,12 +1,14 @@
 import React from 'react';
 import UserItem from './UserItem';
-
-const Users = ({ users }) => {
+import Spinner from '../layouts/Spinner/Spinner';
+const Users = ({ users, loading }) => {
   return (
     <div className='flex flex-wrap w-11/12 mx-auto my-24'>
-      {users.map((user) => (
-        <UserItem key={user.id} user={user} />
-      ))}
+      {loading ? (
+        <Spinner />
+      ) : (
+        users.map((user) => <UserItem key={user.id} user={user} />)
+      )}
     </div>
   );
 };

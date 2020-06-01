@@ -8,23 +8,17 @@ class App extends Component {
     users: [],
     loading: false,
   };
-
   async componentDidMount() {
     this.setState({ loading: true });
     const response = await axios.get('https://api.github.com/users');
     console.log(response.data);
     this.setState({ users: response.data, loading: false });
   }
-
   render() {
     return (
       <div>
         <Navbar />
-        {this.state.loading ? (
-          <div>Loading...</div>
-        ) : (
-          <Users users={this.state.users} />
-        )}
+        <Users users={this.state.users} loading={this.state.loading} />
       </div>
     );
   }
