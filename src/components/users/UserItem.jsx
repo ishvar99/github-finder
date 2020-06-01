@@ -1,7 +1,6 @@
 import React from 'react';
-
-const UserItem = (props) => {
-  const { login, avatar_url, html_url } = props.user;
+import PropTypes from 'prop-types';
+const UserItem = ({ user: { login, avatar_url, html_url } }) => {
   return (
     <div className='p-2 lg:w-1/3 md:w-1/2 w-full'>
       <div className='h-full flex items-center border-gray-300 border p-4 m-2 rounded-lg'>
@@ -22,5 +21,8 @@ const UserItem = (props) => {
       </div>
     </div>
   );
+};
+UserItem.propTypes = {
+  user: PropTypes.object.isRequired,
 };
 export default UserItem;

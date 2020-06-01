@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-const Navbar = (props) => {
+const Navbar = ({ icon, title }) => {
   return (
     <>
       <header className='text-gray-700 body-font bg-black'>
@@ -11,8 +11,8 @@ const Navbar = (props) => {
             href='/'
             className='flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0'
           >
-            <i className={classNames(props.icon, 'text-white', 'text-4xl')}></i>
-            <span className='ml-3 text-xl text-white'>{props.title}</span>
+            <i className={classNames(icon, 'text-white', 'text-4xl')}></i>
+            <span className='ml-3 text-xl text-white'>{title}</span>
           </a>
         </div>
       </header>
