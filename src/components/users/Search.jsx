@@ -20,12 +20,18 @@ export default function Search(props) {
         />
         <br />
         <input
-          className='w-full py-4 outline-none my-4 bg-gray-700 hover:bg-gray-800 text-white font-bold rounded'
+          className='w-full py-4 focus:2outline-none my-4 bg-gray-700 hover:bg-gray-800 text-white font-bold rounded'
           style={{ cursor: 'pointer' }}
           type='submit'
-          value='Search'
+          value='SEARCH'
         />
       </form>
+      <button
+        onClick={props.clearUsers}
+        className='w-full py-4 focus:outline-none my-4 bg-gray-300 hover:bg-gray-400 font-bold rounded'
+      >
+        CLEAR
+      </button>
     </div>
   );
 }

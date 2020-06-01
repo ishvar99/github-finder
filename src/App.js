@@ -22,13 +22,17 @@ class App extends Component {
     const response = await axios.get(
       `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
+    console.log(response.data);
     this.setState({ users: response.data.items, loading: false });
+  };
+  clearUsers = () => {
+    this.setState({ users: [] });
   };
   render() {
     return (
       <div>
         <Navbar />
-        <Search searchUsers={this.searchUsers} />
+        <Search searchUsers={this.searchUsers} clearUsers={this.clearUsers} />
         <Users users={this.state.users} loading={this.state.loading} />
       </div>
     );
