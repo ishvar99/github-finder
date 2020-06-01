@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 
 export class UserItem extends Component {
-  state = {
-    id: 'id',
-    login: 'mojombo',
-    avatar_url: 'https://avatars0.githubusercontent.com/u/1?v=4',
-    html_url: 'https://github.com/mojombo',
-  };
   render() {
-    const { id, login, avatar_url, html_url } = this.state;
+    const { login, avatar_url, html_url } = this.props.user;
     return (
       <div className='p-2 lg:w-1/3 md:w-1/2 w-full'>
         <div className='h-full flex items-center border-gray-300 border p-4 m-2 rounded-lg'>
