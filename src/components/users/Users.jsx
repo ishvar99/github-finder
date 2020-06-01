@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import UserItem from './UserItem';
 import Spinner from '../layouts/Spinner/Spinner';
 const Users = ({ users, loading }) => {
@@ -11,6 +12,11 @@ const Users = ({ users, loading }) => {
       )}
     </div>
   );
+};
+
+Users.propTypes = {
+  users: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default Users;
