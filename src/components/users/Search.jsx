@@ -26,12 +26,14 @@ export default function Search(props) {
           value='SEARCH'
         />
       </form>
-      <button
-        onClick={props.clearUsers}
-        className='w-full py-4 focus:outline-none my-4 bg-gray-300 hover:bg-gray-400 font-bold rounded'
-      >
-        CLEAR
-      </button>
+      {props.showClear && (
+        <button
+          onClick={props.clearUsers}
+          className='w-full py-4 focus:outline-none my-4 bg-gray-300 hover:bg-gray-400 font-bold rounded'
+        >
+          CLEAR
+        </button>
+      )}
     </div>
   );
 }
