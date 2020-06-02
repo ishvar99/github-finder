@@ -14,8 +14,6 @@ const UserItem = ({ user: { login, avatar_url, html_url } }) => {
           <h2 className='text-gray-900 title-font font-medium'>{login}</h2>
         </div>
         <Link
-          target='_blank'
-          rel='noopener noreferrer'
           to={`/user/${login}`}
           className='bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded '
         >

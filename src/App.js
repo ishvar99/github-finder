@@ -6,7 +6,7 @@ import axios from 'axios';
 import Search from './components/users/Search';
 import Pagination from './components/layouts/Pagination/Pagination';
 import About from './components/layouts/About';
-import User from './components/users/User';
+import User from './components/users/User/User';
 class App extends Component {
   state = {
     currentUsers: [],
@@ -24,6 +24,7 @@ class App extends Component {
     );
     const allUsers = response.data.items;
     const currentUsers = allUsers.slice(0, 9);
+    document.getElementById('search').value = '';
     this.setState({
       currentUsers: currentUsers,
       allUsers: allUsers,
@@ -43,9 +44,9 @@ class App extends Component {
   getUser = async (username) => {
     this.setState({ loading: true });
     const response = await axios.get(
-      `https://api.github.com/search/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
-    this.setState({ user: response.data });
+    this.setState({ user: response.data, loading: false });
   };
   render() {
     const { loading, currentUsers, user, allUsers, usersPerPage } = this.state;
@@ -79,9 +80,17 @@ class App extends Component {
           <Route exact path='/about' component={About} />
           <Route
             exact
-            path='/user:login'
+            path='/user/:login'
             render={(props) => {
-              return <User {...props} user={user} loading={loading} />;
+              console.log(props);
+              return (
+                <User
+                  {...props} //we pass props to access match property of props in user component
+                  getUser={this.getUser}
+                  user={user}
+                  loading={loading}
+                />
+              );
             }}
           />
         </Switch>
