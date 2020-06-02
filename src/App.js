@@ -6,52 +6,51 @@ import Search from './components/users/Search';
 import Pagination from './components/layouts/Pagination/Pagination';
 class App extends Component {
   state = {
-    users: [],
+    currentUsers: [],
+    allUsers: [],
     loading: false,
     showClear: false,
     currentPage: 1,
     usersPerPage: 9,
-    totalUsers: [],
   };
   searchUsers = async (user) => {
-    this.setState({ users: [], loading: true });
+    this.setState({ allUsers: [], currentUsers: [], loading: true });
     const response = await axios.get(
       `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
-    this.setState({ totalUsers: response.data.items });
-    const currentUsers = this.state.totalUsers.slice(0, 9);
+    const allUsers = response.data.items;
+    const currentUsers = allUsers.slice(0, 9);
     this.setState({
-      users: currentUsers,
+      currentUsers: currentUsers,
+      allUsers: allUsers,
       loading: false,
     });
   };
   clearUsers = () => {
-    this.setState({ users: [] });
+    this.setState({ currentUsers: [], allUsers: [] });
   };
   paginate = (pageNumber) => {
-    console.log(pageNumber);
-    const indexOfLastUser = pageNumber * this.state.usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
-    const currentUsers = this.state.totalUsers.slice(
-      indexOfFirstUser,
-      indexOfLastUser
-    );
-    this.setState({ users: currentUsers, currentPage: pageNumber });
+    const { usersPerPage, allUsers } = this.state;
+    const indexOfLastUser = pageNumber * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = allUsers.slice(indexOfFirstUser, indexOfLastUser);
+    this.setState({ currentUsers: currentUsers, currentPage: pageNumber });
   };
   render() {
+    const { loading, currentUsers, allUsers, usersPerPage } = this.state;
     return (
       <div>
         <Navbar />
         <Search
           searchUsers={this.searchUsers}
           clearUsers={this.clearUsers}
-          showClear={this.state.users.length > 0 ? true : false}
+          showClear={currentUsers.length > 0 ? true : false}
         />
-        <Users users={this.state.users} loading={this.state.loading} />
-        {this.state.users.length > 0 && (
+        <Users users={currentUsers} loading={loading} />
+        {this.state.currentUsers.length > 0 && (
           <Pagination
-            usersPerPage={this.state.usersPerPage}
-            totalUsers={this.state.totalUsers.length}
+            usersPerPage={usersPerPage}
+            allUsers={allUsers.length}
             paginate={this.paginate}
           />
         )}
