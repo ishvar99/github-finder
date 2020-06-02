@@ -6,9 +6,11 @@ import axios from 'axios';
 import Search from './components/users/Search';
 import Pagination from './components/layouts/Pagination/Pagination';
 import About from './components/layouts/About';
+import User from './components/users/User';
 class App extends Component {
   state = {
     currentUsers: [],
+    user: {},
     allUsers: [],
     loading: false,
     showClear: false,
@@ -38,8 +40,15 @@ class App extends Component {
     const currentUsers = allUsers.slice(indexOfFirstUser, indexOfLastUser);
     this.setState({ currentUsers: currentUsers, currentPage: pageNumber });
   };
+  getUser = async (username) => {
+    this.setState({ loading: true });
+    const response = await axios.get(
+      `https://api.github.com/search/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+    );
+    this.setState({ user: response.data });
+  };
   render() {
-    const { loading, currentUsers, allUsers, usersPerPage } = this.state;
+    const { loading, currentUsers, user, allUsers, usersPerPage } = this.state;
     return (
       <Router>
         <Navbar />
@@ -68,6 +77,13 @@ class App extends Component {
             }}
           />
           <Route exact path='/about' component={About} />
+          <Route
+            exact
+            path='/user:login'
+            render={(props) => {
+              return <User {...props} user={user} loading={loading} />;
+            }}
+          />
         </Switch>
       </Router>
     );
