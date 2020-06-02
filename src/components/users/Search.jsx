@@ -6,6 +6,10 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
 
   const onSumbit = (e) => {
     e.preventDefault();
+    if (text.trim() === '') {
+      document.getElementById('search').focus();
+      return;
+    }
     searchUsers(text);
   };
   return (
