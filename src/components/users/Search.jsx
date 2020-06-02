@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Search(props) {
+export default function Search({ searchUsers, clearUsers, showClear }) {
   const [text, setText] = useState('');
 
   const onSumbit = (e) => {
     e.preventDefault();
-    props.searchUsers(text);
+    searchUsers(text);
   };
   return (
     <div className='container mx-auto w-10/12 sm:w-9/12 md:w-9/12 lg:w-7/12 my-24'>
@@ -16,7 +16,7 @@ export default function Search(props) {
           className='w-full border p-4 rounded focus:outline-none focus:shadow-outline border-gray-400'
           type='text'
           name='text'
-          placeholder='Search for users...'
+          placeholder='Search for github users...'
         />
         <br />
         <input
@@ -26,9 +26,9 @@ export default function Search(props) {
           value='SEARCH'
         />
       </form>
-      {props.showClear && (
+      {showClear && (
         <button
-          onClick={props.clearUsers}
+          onClick={clearUsers}
           className='w-full py-4 focus:outline-none my-4 bg-gray-300 hover:bg-gray-400 font-bold rounded'
         >
           CLEAR
@@ -39,4 +39,6 @@ export default function Search(props) {
 }
 Search.propTypes = {
   searchUsers: PropTypes.func.isRequired,
+  clearUsers: PropTypes.func.isRequired,
+  showClear: PropTypes.bool.isRequired,
 };

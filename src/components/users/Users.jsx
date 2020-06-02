@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserItem from './UserItem';
 import Spinner from '../layouts/Spinner/Spinner';
-const Users = ({ users, loading }) => {
+export default function Users({ users, loading }) {
   return (
     <div className='flex flex-wrap w-11/12 mx-auto my-24'>
       {loading ? (
@@ -12,11 +12,9 @@ const Users = ({ users, loading }) => {
       )}
     </div>
   );
-};
+}
 
 Users.propTypes = {
   users: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
 };
-
-export default Users;

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-const Navbar = ({ icon, title }) => {
+export default function Navbar({ icon, title }) {
   return (
     <>
       <header className='text-gray-700 body-font bg-black'>
@@ -18,7 +18,7 @@ const Navbar = ({ icon, title }) => {
       </header>
     </>
   );
-};
+}
 Navbar.defaultProps = {
   title: 'Github Finder',
   icon: 'fab fa-github',
@@ -27,4 +27,3 @@ Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
 };
-export default Navbar;
