@@ -5,6 +5,7 @@ import Users from './components/users/Users';
 import axios from 'axios';
 import Search from './components/users/Search';
 import Pagination from './components/layouts/Pagination/Pagination';
+import About from './components/layouts/About';
 class App extends Component {
   state = {
     currentUsers: [],
@@ -65,9 +66,9 @@ class App extends Component {
                 </Fragment>
               );
             }}
-          ></Route>
+          />
+          <Route exact path='/about' component={About} />
         </Switch>
-        }
       </Router>
     );
   }
