@@ -6,10 +6,10 @@ export default function Pagination({ usersPerPage, totalUsers, paginate }) {
     pageNumbers.push(i);
   }
   return (
-    <ul class='pagination pagination-lg'>
+    <ul className='pagination pagination-lg'>
       {pageNumbers.map((number) => {
         return (
-          <li>
+          <li key={number}>
             <a onClick={() => paginate(number)} href='!#'>
               {number}
             </a>
