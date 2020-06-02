@@ -4,7 +4,7 @@ import UserItem from './UserItem';
 import Spinner from '../layouts/Spinner/Spinner';
 export default function Users({ users, loading }) {
   return (
-    <div className='flex flex-wrap w-11/12 mx-auto my-24'>
+    <div className='flex flex-wrap w-11/12 mx-auto my-16'>
       {loading ? (
         <Spinner />
       ) : (

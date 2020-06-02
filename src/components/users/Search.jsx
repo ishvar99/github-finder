@@ -15,6 +15,7 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
           onChange={(event) => setText(event.target.value)}
           className='w-full border p-4 rounded focus:outline-none focus:shadow-outline border-gray-400'
           type='text'
+          id='search'
           name='text'
           placeholder='Search for github users...'
         />
@@ -28,7 +29,12 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
       </form>
       {showClear && (
         <button
-          onClick={clearUsers}
+          onClick={() => {
+            const searchBox = document.getElementById('search');
+            searchBox.value = '';
+            searchBox.focus();
+            clearUsers();
+          }}
           className='w-full py-4 focus:outline-none my-4 bg-gray-300 hover:bg-gray-400 font-bold rounded'
         >
           CLEAR
