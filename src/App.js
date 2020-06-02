@@ -8,14 +8,22 @@ class App extends Component {
     users: [],
     loading: false,
     showClear: false,
+    currentPage: 1,
+    usersPerPage: 9,
   };
   searchUsers = async (user) => {
     this.setState({ loading: true });
     const response = await axios.get(
       `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
+    const indexOfLastUser = this.state.currentPage * this.state.usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
+    const currentUsers = response.data.items.slice(
+      indexOfFirstUser,
+      indexOfLastUser
+    );
     this.setState({
-      users: response.data.items,
+      users: currentUsers,
       loading: false,
     });
   };
