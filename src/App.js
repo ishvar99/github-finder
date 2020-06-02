@@ -14,17 +14,12 @@ class App extends Component {
     totalUsers: [],
   };
   searchUsers = async (user) => {
-    this.setState({ loading: true });
+    this.setState({ users: [], loading: true });
     const response = await axios.get(
       `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
     this.setState({ totalUsers: response.data.items });
-    const indexOfLastUser = this.state.currentPage * this.state.usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
-    const currentUsers = response.data.items.slice(
-      indexOfFirstUser,
-      indexOfLastUser
-    );
+    const currentUsers = this.state.totalUsers.slice(0, 9);
     this.setState({
       users: currentUsers,
       loading: false,
@@ -32,6 +27,16 @@ class App extends Component {
   };
   clearUsers = () => {
     this.setState({ users: [] });
+  };
+  paginate = (pageNumber) => {
+    console.log(pageNumber);
+    const indexOfLastUser = pageNumber * this.state.usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - this.state.usersPerPage;
+    const currentUsers = this.state.totalUsers.slice(
+      indexOfFirstUser,
+      indexOfLastUser
+    );
+    this.setState({ users: currentUsers, currentPage: pageNumber });
   };
   render() {
     return (
@@ -47,6 +52,7 @@ class App extends Component {
           <Pagination
             usersPerPage={this.state.usersPerPage}
             totalUsers={this.state.totalUsers.length}
+            paginate={this.paginate}
           />
         )}
       </div>
