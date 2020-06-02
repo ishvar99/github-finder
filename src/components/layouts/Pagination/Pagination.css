@@ -10,7 +10,7 @@
 .pagination > li {
   display: inline;
 }
-.pagination > li > a {
+.pagination > li > button {
   position: relative;
   float: left;
   padding: 6px 12px;
@@ -21,41 +21,42 @@
   background-color: #fff;
   border: 1px solid #ddd;
 }
-.pagination > li:first-child > a {
+.pagination > li:first-child > button {
   margin-left: 0;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
-.pagination > li:last-child > a {
+.pagination > li:last-child > button {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-.pagination > li > a:hover,
-.pagination > li > a:focus {
+.pagination > li > button:hover,
+.pagination > li > button:focus {
   z-index: 2;
+  outline: none;
   color: white;
   background-color: #4a5568;
   border-color: #ddd;
 }
-.pagination > .active > a,
-.pagination > .active > a:hover,
-.pagination > .active > a:focus {
+.pagination > .active > button,
+.pagination > .active > button:hover,
+.pagination > .active > button:focus {
   z-index: 3;
   color: #fff;
   cursor: default;
   background-color: #337ab7;
   border-color: #337ab7;
 }
-.pagination-lg > li > a {
+.pagination-lg > li > button {
   padding: 16px 22px;
   font-size: 24px;
   line-height: 1;
 }
-.pagination-lg > li:first-child > a {
+.pagination-lg > li:first-child > button {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
-.pagination-lg > li:last-child > a {
+.pagination-lg > li:last-child > button {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }

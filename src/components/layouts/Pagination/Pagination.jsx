@@ -11,9 +11,7 @@ export default function Pagination({ usersPerPage, allUsers, paginate }) {
       {pageNumbers.map((number) => {
         return (
           <li key={number}>
-            <a onClick={() => paginate(number)} href='!#'>
-              {number}
-            </a>
+            <button onClick={() => paginate(number)}>{number}</button>
           </li>
         );
       })}

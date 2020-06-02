@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
 import Users from './components/users/Users';
 import axios from 'axios';
@@ -39,22 +40,35 @@ class App extends Component {
   render() {
     const { loading, currentUsers, allUsers, usersPerPage } = this.state;
     return (
-      <div>
+      <Router>
         <Navbar />
-        <Search
-          searchUsers={this.searchUsers}
-          clearUsers={this.clearUsers}
-          showClear={currentUsers.length > 0 ? true : false}
-        />
-        <Users users={currentUsers} loading={loading} />
-        {this.state.currentUsers.length > 0 && (
-          <Pagination
-            usersPerPage={usersPerPage}
-            allUsers={allUsers.length}
-            paginate={this.paginate}
-          />
-        )}
-      </div>
+        <Switch>
+          <Route
+            exact
+            path='/'
+            render={(props) => {
+              return (
+                <Fragment>
+                  <Search
+                    searchUsers={this.searchUsers}
+                    clearUsers={this.clearUsers}
+                    showClear={currentUsers.length > 0 ? true : false}
+                  />
+                  <Users users={currentUsers} loading={loading} />
+                  {this.state.currentUsers.length > 0 && (
+                    <Pagination
+                      usersPerPage={usersPerPage}
+                      allUsers={allUsers.length}
+                      paginate={this.paginate}
+                    />
+                  )}
+                </Fragment>
+              );
+            }}
+          ></Route>
+        </Switch>
+        }
+      </Router>
     );
   }
 }
