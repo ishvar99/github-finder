@@ -36,6 +36,7 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
           onClick={() => {
             const searchBox = document.getElementById('search');
             searchBox.value = '';
+            setText('');
             searchBox.focus();
             clearUsers();
           }}
