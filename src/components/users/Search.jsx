@@ -47,12 +47,14 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
           >
             CLEAR
           </button>
-          <div className='container text-3xl mt-12'>
-            <p className='text-center'>
-              Search Results for "
-              <span className='font-bold'>{searchTerm}</span>"
-            </p>
-          </div>
+          {searchTerm !== '' ? (
+            <div className='container text-3xl mt-12'>
+              <p className='text-center'>
+                Search Results for "
+                <span className='font-bold'>{searchTerm}</span>"
+              </p>
+            </div>
+          ) : null}
         </>
       )}
     </div>

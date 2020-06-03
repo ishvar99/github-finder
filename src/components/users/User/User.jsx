@@ -30,15 +30,18 @@ export default class User extends Component {
         <Spinner />
       </div>
     ) : (
-      <div className='container w-10/12 md:w-8/12 lg:w-6/12 mx-auto my-24'>
-        <Link to='/' className='btn btn-light'>
+      <div className='text-xl container w-10/12 md:w-8/12 lg:w-6/12 mx-auto my-24'>
+        <Link
+          to='/'
+          className=' bg-gray-700 hover:bg-gray-800 font-bold text-white btn mr-24 rounded'
+        >
           Back To Search
         </Link>
-        Hireable:{' '}
+        <strong className='text-gray-700 text-2xl'>Hireable: </strong>
         {hireable ? (
-          <i className='fas fa-check text-success' />
+          <i className='text-2xl fas fa-check text-success' />
         ) : (
-          <i className='fas fa-times-circle text-danger' />
+          <i className='text-2xl fas fa-times-circle text-danger' />
         )}
         <div className='card grid'>
           <div className='all-center'>
@@ -48,13 +51,13 @@ export default class User extends Component {
               alt=''
               style={{ width: '150px' }}
             />
-            <h1 className='font-bold text-2xl'>{name}</h1>
-            <p className='text-xl'>{location}</p>
+            <h1 className='font-bold text-2xl w-5/12  text-center'>{name}</h1>
+            <p className='text-xl  w-5/12 text-center'>{location}</p>
           </div>
           <div>
             {bio && (
               <Fragment>
-                <h3>Bio</h3>
+                <strong>Biography:</strong>
                 <p>{bio}</p>
               </Fragment>
             )}
