@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import Spinner from '../../layouts/Spinner/Spinner';
 import { Link } from 'react-router-dom';
+import Repos from '../Repos';
 import './User.css';
 export default class User extends Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
   }
   render() {
-    const { loading } = this.props;
+    const { loading, repos } = this.props;
     const {
       name,
       company,
@@ -99,7 +101,7 @@ export default class User extends Component {
             Public Gists: {public_gists}
           </div>
         </div>
-        {/* <Repos repos={repos} /> */}
+        <Repos repos={repos} />
       </div>
     );
   }

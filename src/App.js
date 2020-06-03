@@ -10,6 +10,7 @@ import User from './components/Users/User/User';
 class App extends Component {
   state = {
     currentUsers: [],
+    repos: [],
     user: {},
     allUsers: [],
     loading: false,
@@ -48,8 +49,22 @@ class App extends Component {
     );
     this.setState({ user: response.data, loading: false });
   };
+  getUserRepos = async (username) => {
+    this.setState({ loading: true });
+    const response = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+    );
+    this.setState({ repos: response.data });
+  };
   render() {
-    const { loading, currentUsers, user, allUsers, usersPerPage } = this.state;
+    const {
+      loading,
+      currentUsers,
+      user,
+      repos,
+      allUsers,
+      usersPerPage,
+    } = this.state;
     return (
       <Router>
         <Navbar />
@@ -85,8 +100,10 @@ class App extends Component {
               console.log(props);
               return (
                 <User
+                  repos={repos}
                   {...props} //we pass props to access match property of props in user component
                   getUser={this.getUser}
+                  getUserRepos={this.getUserRepos}
                   user={user}
                   loading={loading}
                 />
