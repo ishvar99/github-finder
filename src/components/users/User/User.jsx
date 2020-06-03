@@ -28,7 +28,7 @@ export default class User extends Component {
         <Spinner />
       </div>
     ) : (
-      <div className='container w-9/12 mx-auto my-24'>
+      <div className='container w-10/12 md:w-8/12 lg:w-6/12 mx-auto my-24'>
         <Link to='/' className='btn btn-light'>
           Back To Search
         </Link>
@@ -46,8 +46,8 @@ export default class User extends Component {
               alt=''
               style={{ width: '150px' }}
             />
-            <h1>{name}</h1>
-            <p>Location: {location}</p>
+            <h1 className='font-bold text-2xl'>{name}</h1>
+            <p className='text-xl'>{location}</p>
           </div>
           <div>
             {bio && (
@@ -56,11 +56,16 @@ export default class User extends Component {
                 <p>{bio}</p>
               </Fragment>
             )}
-            <a href={html_url} className='btn btn-dark my-1'>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href={html_url}
+              className='text-center btn bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded  my-1 font-bold rounded'
+            >
               Visit Github Profile
             </a>
             <ul>
-              <li>
+              <li className='text-xl'>
                 {login && (
                   <Fragment>
                     <strong>Username: </strong> {login}
@@ -68,7 +73,7 @@ export default class User extends Component {
                 )}
               </li>
 
-              <li>
+              <li className='text-xl'>
                 {company && (
                   <Fragment>
                     <strong>Company: </strong> {company}
@@ -76,7 +81,7 @@ export default class User extends Component {
                 )}
               </li>
 
-              <li>
+              <li className='text-xl'>
                 {blog && (
                   <Fragment>
                     <strong>Website: </strong> {blog}
@@ -89,8 +94,10 @@ export default class User extends Component {
         <div className='card text-center'>
           <div className='badge badge-primary'>Followers: {followers}</div>
           <div className='badge badge-success'>Following: {following}</div>
-          <div className='badge badge-light'>Public Repos: {public_repos}</div>
-          <div className='badge badge-dark'>Public Gists: {public_gists}</div>
+          <div className='badge bg-blue-500'>Public Repos: {public_repos}</div>
+          <div className='badge bg-orange-500'>
+            Public Gists: {public_gists}
+          </div>
         </div>
         {/* <Repos repos={repos} /> */}
       </div>

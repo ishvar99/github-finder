@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
-import Users from './components/users/Users';
+import Users from './components/Users/Users';
 import axios from 'axios';
-import Search from './components/users/Search';
+import Search from './components/Users/Search';
 import Pagination from './components/layouts/Pagination/Pagination';
 import About from './components/layouts/About';
-import User from './components/users/User/User';
+import User from './components/Users/User/User';
 class App extends Component {
   state = {
     currentUsers: [],
