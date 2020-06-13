@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import githubContext from '../../context/github/githubContext';
-export default function Search({ clearUsers, showClear }) {
+export default function Search() {
   const [text, setText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const context = useContext(githubContext);
@@ -34,7 +34,7 @@ export default function Search({ clearUsers, showClear }) {
           value='SEARCH'
         />
       </form>
-      {showClear && (
+      {context.currentUsers.length > 0 && (
         <>
           <button
             onClick={() => {
@@ -42,7 +42,7 @@ export default function Search({ clearUsers, showClear }) {
               searchBox.value = '';
               setText('');
               searchBox.focus();
-              clearUsers();
+              context.clearUsers();
             }}
             className='w-full py-4 focus:outline-none my-4 bg-gray-300 hover:bg-gray-400 font-bold rounded'
           >

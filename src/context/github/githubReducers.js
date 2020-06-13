@@ -4,6 +4,7 @@ import {
   CLEAR_USERS,
   GET_REPOS,
   SET_LOADING,
+  PAGINATE,
 } from '../types';
 
 export default (state, action) => {
@@ -24,6 +25,17 @@ export default (state, action) => {
         currentUsers: [],
       };
 
+    case CLEAR_USERS:
+      return {
+        ...state,
+        allUsers: [],
+        currentUsers: [],
+      };
+    case PAGINATE:
+      return {
+        ...state,
+        currentUsers: action.payload,
+      };
     default:
       return state;
   }

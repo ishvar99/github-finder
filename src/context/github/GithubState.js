@@ -8,6 +8,7 @@ import {
   CLEAR_USERS,
   GET_REPOS,
   SET_LOADING,
+  PAGINATE,
 } from '../types';
 
 const GithubState = (props) => {
@@ -17,6 +18,7 @@ const GithubState = (props) => {
     user: {},
     repos: [],
     loading: false,
+    usersPerPage: 9,
   };
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
@@ -34,7 +36,16 @@ const GithubState = (props) => {
   };
 
   const setloading = () => dispatch({ type: SET_LOADING });
-
+  const clearUsers = () => dispatch({ type: CLEAR_USERS });
+  const paginate = (pageNumber) => {
+    const indexOfLastUser = pageNumber * state.usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - state.usersPerPage;
+    const current_users = state.allUsers.slice(
+      indexOfFirstUser,
+      indexOfLastUser
+    );
+    dispatch({ type: PAGINATE, payload: current_users });
+  };
   return (
     <GithubContext.Provider
       value={{
@@ -43,7 +54,10 @@ const GithubState = (props) => {
         user: state.user,
         repos: state.repos,
         loading: state.loading,
+        usersPerPage: state.usersPerPage,
         searchUsers: searchUsers,
+        clearUsers: clearUsers,
+        paginate: paginate,
       }}
     >
       {props.children}
