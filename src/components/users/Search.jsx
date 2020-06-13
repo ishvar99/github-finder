@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import githubContext from '../../context/github/githubContext';
 export default function Search({ searchUsers, clearUsers, showClear }) {
   const [text, setText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const context = useContext(githubContext);
   const onSumbit = (e) => {
     e.preventDefault();
     if (text.trim() === '') {
@@ -11,7 +12,7 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
       return;
     }
     setSearchTerm(text);
-    searchUsers(text);
+    context.searchUsers(text);
   };
   return (
     <div className='container mx-auto w-10/12 sm:w-9/12 md:w-9/12 lg:w-7/12 my-24'>
