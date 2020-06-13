@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
 import Users from './components/Users/Users';
@@ -7,112 +7,100 @@ import Search from './components/Users/Search';
 import Pagination from './components/layouts/Pagination/Pagination';
 import About from './components/layouts/About';
 import User from './components/Users/User/User';
-class App extends Component {
-  state = {
-    currentUsers: [],
-    repos: [],
-    user: {},
-    allUsers: [],
-    loading: false,
-    showClear: false,
-    currentPage: 1,
-    usersPerPage: 9,
-  };
-  searchUsers = async (user) => {
-    this.setState({ allUsers: [], currentUsers: [], loading: true });
+const App = () => {
+  const [currentUsers, setcurrentUsers] = useState([]);
+  const [repos, setrepos] = useState([]);
+  const [user, setuser] = useState({});
+  const [allUsers, setallUsers] = useState([]);
+  const [loading, setloading] = useState(false);
+  const usersPerPage = 9;
+
+  const searchUsers = async (username) => {
+    setallUsers([]);
+    setcurrentUsers([]);
+    setloading(true);
     const response = await axios.get(
-      `https://api.github.com/search/users?q=${user}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+      `https://api.github.com/search/users?q=${username}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
-    const allUsers = response.data.items;
-    const currentUsers = allUsers.slice(0, 9);
+    const all_users = response.data.items;
+    const current_users = all_users.slice(0, 9);
     document.getElementById('search').value = '';
-    this.setState({
-      currentUsers: currentUsers,
-      allUsers: allUsers,
-      loading: false,
-    });
+    setcurrentUsers(current_users);
+    setallUsers(all_users);
+    setloading(false);
   };
-  clearUsers = () => {
-    this.setState({ currentUsers: [], allUsers: [] });
+  const clearUsers = () => {
+    setcurrentUsers([]);
+    setallUsers([]);
   };
-  paginate = (pageNumber) => {
-    const { usersPerPage, allUsers } = this.state;
+  const paginate = (pageNumber) => {
     const indexOfLastUser = pageNumber * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = allUsers.slice(indexOfFirstUser, indexOfLastUser);
-    this.setState({ currentUsers: currentUsers, currentPage: pageNumber });
+    const current_users = allUsers.slice(indexOfFirstUser, indexOfLastUser);
+    setcurrentUsers(current_users);
   };
-  getUser = async (username) => {
-    this.setState({ loading: true });
+  const getUser = async (username) => {
+    setloading(true);
     const response = await axios.get(
       `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
-    this.setState({ user: response.data, loading: false });
+    setuser(response.data);
+    setloading(false);
   };
-  getUserRepos = async (username) => {
-    this.setState({ loading: true });
+  const getUserRepos = async (username) => {
+    setloading(true);
     const response = await axios.get(
       `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
     );
-    this.setState({ repos: response.data });
+    setrepos(response.data);
   };
-  render() {
-    const {
-      loading,
-      currentUsers,
-      user,
-      repos,
-      allUsers,
-      usersPerPage,
-    } = this.state;
-    return (
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route
-            exact
-            path='/'
-            render={(props) => {
-              return (
-                <Fragment>
-                  <Search
-                    searchUsers={this.searchUsers}
-                    clearUsers={this.clearUsers}
-                    showClear={currentUsers.length > 0 ? true : false}
-                  />
-                  <Users users={currentUsers} loading={loading} />
-                  {this.state.currentUsers.length > 0 && (
-                    <Pagination
-                      usersPerPage={usersPerPage}
-                      allUsers={allUsers.length}
-                      paginate={this.paginate}
-                    />
-                  )}
-                </Fragment>
-              );
-            }}
-          />
-          <Route exact path='/about' component={About} />
-          <Route
-            exact
-            path='/user/:login'
-            render={(props) => {
-              console.log(props);
-              return (
-                <User
-                  repos={repos}
-                  {...props} //we pass props to access match property of props in user component
-                  getUser={this.getUser}
-                  getUserRepos={this.getUserRepos}
-                  user={user}
-                  loading={loading}
+  return (
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route
+          exact
+          path='/'
+          render={(props) => {
+            return (
+              <Fragment>
+                <Search
+                  searchUsers={searchUsers}
+                  clearUsers={clearUsers}
+                  showClear={currentUsers.length > 0 ? true : false}
                 />
-              );
-            }}
-          />
-        </Switch>
-      </Router>
-    );
-  }
-}
+                <Users users={currentUsers} loading={loading} />
+                {currentUsers.length > 0 && (
+                  <Pagination
+                    usersPerPage={usersPerPage}
+                    allUsers={allUsers.length}
+                    paginate={paginate}
+                  />
+                )}
+              </Fragment>
+            );
+          }}
+        />
+        <Route exact path='/about' component={About} />
+        <Route
+          exact
+          path='/user/:login'
+          render={(props) => {
+            console.log(props);
+            return (
+              <User
+                repos={repos}
+                {...props} //we pass props to access match property of props in user component
+                getUser={getUser}
+                getUserRepos={getUserRepos}
+                user={user}
+                loading={loading}
+              />
+            );
+          }}
+        />
+      </Switch>
+    </Router>
+  );
+};
 export default App;

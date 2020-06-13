@@ -114,3 +114,5 @@ User.prototype = {
   repos: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
 };
+
+export default User;
