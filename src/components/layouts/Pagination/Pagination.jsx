@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import PropTypes from 'prop-types';
 import './Pagination.css';
 import githubContext from '../../../context/github/githubContext';
 export default function Pagination() {
@@ -31,9 +30,3 @@ export default function Pagination() {
     </>
   );
 }
-
-// Pagination.propTypes = {
-//   usersPerPage: PropTypes.number.isRequired,
-//   allUsers: PropTypes.number.isRequired,
-//   paginate: PropTypes.func.isRequired,
-// };

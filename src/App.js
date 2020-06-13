@@ -54,12 +54,7 @@ const App = () => {
             render={(props) => {
               return (
                 <User
-                // repos={repos}
-                // {...props} //we pass props to access match property of props in user component
-                // getUser={getUser}
-                // getUserRepos={getUserRepos}
-                // user={user}
-                // loading={loading}
+                  {...props} //we pass props to access match property of props in user component
                 />
               );
             }}

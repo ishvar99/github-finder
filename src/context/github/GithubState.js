@@ -46,6 +46,22 @@ const GithubState = (props) => {
     );
     dispatch({ type: PAGINATE, payload: current_users });
   };
+  const getUser = async (username) => {
+    setloading();
+    const response = await axios.get(
+      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+    );
+    dispatch({ type: GET_USER, payload: response.data });
+  };
+
+  const getUserRepos = async (username) => {
+    setloading();
+    const response = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`
+    );
+    dispatch({ type: 'GET_REPOS', payload: response.data });
+  };
+
   return (
     <GithubContext.Provider
       value={{
@@ -55,9 +71,11 @@ const GithubState = (props) => {
         repos: state.repos,
         loading: state.loading,
         usersPerPage: state.usersPerPage,
-        searchUsers: searchUsers,
-        clearUsers: clearUsers,
-        paginate: paginate,
+        searchUsers,
+        clearUsers,
+        paginate,
+        getUser,
+        getUserRepos,
       }}
     >
       {props.children}
