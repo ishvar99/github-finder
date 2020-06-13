@@ -55,7 +55,7 @@ const App = () => {
                     clearUsers={clearUsers}
                     showClear={currentUsers.length > 0 ? true : false}
                   />
-                  <Users users={currentUsers} loading={loading} />
+                  <Users />
                   {currentUsers.length > 0 && (
                     <Pagination
                       usersPerPage={usersPerPage}

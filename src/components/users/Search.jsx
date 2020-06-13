@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import githubContext from '../../context/github/githubContext';
-export default function Search({ searchUsers, clearUsers, showClear }) {
+export default function Search({ clearUsers, showClear }) {
   const [text, setText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const context = useContext(githubContext);
   const onSumbit = (e) => {
     e.preventDefault();
+    document.getElementById('search').value = '';
     if (text.trim() === '') {
       document.getElementById('search').focus();
       return;
@@ -61,8 +61,8 @@ export default function Search({ searchUsers, clearUsers, showClear }) {
     </div>
   );
 }
-Search.propTypes = {
-  searchUsers: PropTypes.func.isRequired,
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
-};
+// Search.propTypes = {
+//   searchUsers: PropTypes.func.isRequired,
+//   clearUsers: PropTypes.func.isRequired,
+//   showClear: PropTypes.bool.isRequired,
+// };
