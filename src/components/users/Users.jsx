@@ -15,8 +15,3 @@ export default function Users() {
     </div>
   );
 }
-
-// Users.propTypes = {
-//   users: PropTypes.array.isRequired,
-//   loading: PropTypes.bool.isRequired,
-// };
