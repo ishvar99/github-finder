@@ -4,6 +4,7 @@ export default function Spinner() {
   return (
     <div className='box mx-auto'>
       <div className='spinner'></div>
+      <span>Loading...</span>
     </div>
   );
 }
