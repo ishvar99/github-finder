@@ -6,11 +6,11 @@ export default function Pagination() {
   const context = useContext(githubContext);
   let pageNumbers = [];
   for (
-    let i = 1;
+    let i = 0;
     i <= Math.ceil(context.allUsers.length / context.usersPerPage);
     i++
   ) {
-    pageNumbers.push(i);
+    pageNumbers.push(i+1);
   }
   return (
     <>
