@@ -27,7 +27,6 @@ const User = ({ match }) => {
     following,
     public_repos,
     public_gists,
-    hireable,
   } = context.user;
   return context.loading ? (
     <div style={{ position: 'fixed', top: '50%', left: '50%' }}>
@@ -41,12 +40,12 @@ const User = ({ match }) => {
       >
         Back To Search
       </Link>
-      <strong className='text-gray-700 text-2xl'>Hireable: </strong>
+      {/* <strong className='text-gray-700 text-2xl'>Hireable: </strong>
       {hireable ? (
         <i className='text-2xl fas fa-check text-success' />
       ) : (
         <i className='text-2xl fas fa-times-circle text-danger' />
-      )}
+      )} */}
       <div className='card grid'>
         <div className='all-center'>
           <img
