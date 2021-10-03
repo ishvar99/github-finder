@@ -30,6 +30,7 @@ export default (state, action) => {
         ...state,
         allUsers: [],
         currentUsers: [],
+        loading: false,
       };
     case PAGINATE:
       return {
@@ -46,6 +47,7 @@ export default (state, action) => {
       return {
         ...state,
         repos: action.payload,
+        loading: false,
       };
     default:
       return state;
